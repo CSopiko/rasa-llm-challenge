@@ -3,6 +3,7 @@ import os
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
+from langchain.prompts import PromptTemplate
 
 
 def get_source_chunks(mdx_contents):
@@ -27,3 +28,22 @@ def get_chroma_db(chromadb_path, source_chunks, embedding_model):
         print(f"Loading chroma db from {chromadb_path}")
         chroma = Chroma(persist_directory=chromadb_path)
     return chroma
+
+
+prompt_template = """
+You should act like Rasa (open source framework for building conversational ai) assistant, 
+who is well known with the documentation.
+You must be helpful and answer the questions of the user with the help of the documentation.
+Provide code snippets and links to the documentation if needed.
+Do not mention context and reply as human would write.
+
+Context: {context} 
+
+Question: {question}
+Answer:"""
+
+PROMPT = PromptTemplate(
+    template=prompt_template, input_variables=["context", "question"]
+)
+
+chain_type_kwargs = {"prompt": PROMPT}
