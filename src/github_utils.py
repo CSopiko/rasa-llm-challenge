@@ -45,3 +45,12 @@ def fetch_mdx_contents(mdx_files, wait_for_renewal=False, max_requests=60):
         else:
             print(f"Error downloading file {file['path']}: {response.status_code}")
     return mdx_contents
+
+
+def load_mdx_contents(mdx_path):
+    print(f"Using old mdx files from disk.")
+    import pickle
+
+    with open(mdx_path, "rb") as f:
+        mdx_contents = pickle.load(f)
+    return mdx_contents
