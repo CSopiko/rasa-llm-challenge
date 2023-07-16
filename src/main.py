@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 import os
 import fnmatch
 
-
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.llms import OpenAI
 from langchain.chains import RetrievalQA
@@ -13,14 +12,16 @@ from langchain.chains.question_answering import load_qa_chain
 
 def main():
     print("Starting...")
+    print("Loading environment variables...")
     load_dotenv()
-    GITHUB_TOKENS = eval(os.getenv("GITHUB_TOKENS", "[None]"))
+    GITHUB_TOKEN = os.getenv("GITHUB_TOKENS")
     EXIT_COMMAND = "exit"
     REPO_OWNER = "RasaHQ"
     REPO_NAME = "rasa"
     CHROMA_DB_PATH = f"./chroma/{os.path.basename(REPO_NAME)}"
+    DOCS_MDX_PATH = "src/all_mdx_contents.pkl"
 
-    repo_files = get_files_from_github_repo(REPO_OWNER, REPO_NAME, GITHUB_TOKENS[0])
+    repo_files = get_files_from_github_repo(REPO_OWNER, REPO_NAME, GITHUB_TOKEN)
     mdx_files = [
         file
         for file in repo_files
@@ -29,6 +30,7 @@ def main():
     mdx_contents = fetch_mdx_contents(mdx_files, wait_for_renewal=False)
 
     if len(mdx_contents) < len(mdx_files):
+        print()
         print(
             f"Warning: {len(mdx_contents)} of {len(mdx_files)} files were downloaded."
         )
@@ -37,7 +39,7 @@ def main():
 
         import pickle
 
-        with open("all_mdx_contents.pkl", "rb") as f:
+        with open(DOCS_MDX_PATH, "rb") as f:
             mdx_contents = pickle.load(f)
         print(f"Loaded {len(mdx_contents)} mdx files from disk.")
 
@@ -49,9 +51,11 @@ def main():
     qa = RetrievalQA(
         combine_documents_chain=qa_chain, retriever=chroma_db.as_retriever()
     )
-    input_text = f"Enter the question (If you want to exit, enter '{EXIT_COMMAND}'): "
+    input_text = f"Enter the question (If you want to exit, enter '{EXIT_COMMAND}')"
     while True:
-        question = input(input_text)
+        print()
+        print(input_text)
+        question = input(">>> ")
         if question == EXIT_COMMAND:
             break
         res = qa.run(question)
