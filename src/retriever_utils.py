@@ -24,7 +24,5 @@ def get_chroma_db(chromadb_path, source_chunks, embedding_model):
         chroma.persist()
     else:
         print(f"Loading chroma db from {chromadb_path}")
-        chroma = Chroma(
-            persist_directory=chromadb_path, embedding_model=embedding_model
-        )
+        chroma = Chroma(persist_directory=chromadb_path)
     return chroma
