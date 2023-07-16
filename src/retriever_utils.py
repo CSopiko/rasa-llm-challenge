@@ -1,7 +1,8 @@
 import os
-from langchain.vectorstores import Chroma
+
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
 
 
 def get_source_chunks(mdx_contents):

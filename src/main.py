@@ -1,13 +1,14 @@
-from github_utils import get_files_from_github_repo, fetch_mdx_contents
-from retriever_utils import get_source_chunks, get_chroma_db
-from dotenv import load_dotenv
-import os
 import fnmatch
+import os
 
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.llms import OpenAI
+from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
 from langchain.chains.question_answering import load_qa_chain
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.llms import OpenAI
+
+from github_utils import fetch_mdx_contents, get_files_from_github_repo
+from retriever_utils import get_chroma_db, get_source_chunks
 
 
 def main():
