@@ -10,7 +10,7 @@ from IPython.display import display, Markdown
 def ask_question(question, qa):
     res = qa.run(question)
     display(Markdown(f"**Question:** {question}"))
-    res_formatted = res.replace('. ', '.\n\n')
+    res_formatted = res.replace(". ", ".\n\n")
     display(Markdown(f"**Answer:** {res_formatted}"))
     return res
 
@@ -27,15 +27,13 @@ def get_source_chunks(mdx_contents):
 
 
 def get_chroma_db(chromadb_path, source_chunks, embedding_model):
-    if not os.path.exists(chromadb_path):
-        print(f"Creating new chroma db at {chromadb_path}")
-        chroma = Chroma.from_documents(
-            source_chunks, embedding_model, persist_directory=chromadb_path
-        )
-        chroma.persist()
-    else:
-        print(f"Loading chroma db from {chromadb_path}")
-        chroma = Chroma(persist_directory=chromadb_path)
+    # As it turns out, the chroma db does not support restoring from cache
+
+    print(f"Creating new chroma db at {chromadb_path}")
+    chroma = Chroma.from_documents(
+        source_chunks, embedding_model, persist_directory=chromadb_path
+    )
+    chroma.persist()
     return chroma
 
 
