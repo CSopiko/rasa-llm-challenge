@@ -5,8 +5,8 @@ import requests
 from langchain.docstore.document import Document
 
 
-def get_files_from_github_repo(owner, repo, token):
-    url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/main?recursive=1"
+def get_files_from_github_repo(owner, repo, token, tag_sha="main"):
+    url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/{tag_sha}?recursive=1"
 
     headers = {
         "Authorization": f"token {token}",
@@ -17,10 +17,10 @@ def get_files_from_github_repo(owner, repo, token):
         content = response.json()
         return content.get("tree")
     else:
-        raise ValueError(f"Error fetching {repo} contents: {response.status_code}")
+        raise ValueError(f"Error fetching {repo} contents: check {tag_sha} tag exists. response: {response.status_code}")
 
 
-def fetch_mdx_contents(mdx_files, wait_for_renewal=False, max_requests=60):
+def fetch_mdx_contents(mdx_files, wait_for_renewal=False, max_requests=60, verbose=False):
     mdx_contents = []
     for i, file in enumerate(mdx_files):
 
@@ -36,13 +36,14 @@ def fetch_mdx_contents(mdx_files, wait_for_renewal=False, max_requests=60):
             response = response.json()
             content = response.get("content")
             decoded_content = base64.b64decode(content).decode("utf-8")
-            print("Fetching Content from ", file["path"])
+            if verbose:
+                print("Fetching Content from ", file["path"])
             mdx_contents.append(
                 Document(
                     page_content=decoded_content, metadata={"source": file.get("path")}
                 )
             )
-        else:
+        elif verbose:
             print(f"Error downloading file {file['path']}: {response.status_code}")
     return mdx_contents
 
