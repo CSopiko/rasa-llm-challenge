@@ -4,6 +4,15 @@ from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
+from IPython.display import display, Markdown
+
+
+def ask_question(question, qa):
+    res = qa.run(question)
+    display(Markdown(f"**Question:** {question}"))
+    res_formatted = res.replace('. ', '.\n\n')
+    display(Markdown(f"**Answer:** {res_formatted}"))
+    return res
 
 
 def get_source_chunks(mdx_contents):
@@ -35,6 +44,7 @@ You should act like Rasa (open source framework for building conversational ai) 
 who knows the documentation.
 You must be helpful and answer the questions of the user with the help of the documentation.
 Provide code snippets and links to the documentation if needed.
+Return every answer in markdown format.
 Do not mention context and reply as human would write.
 
 Context: {context} 
