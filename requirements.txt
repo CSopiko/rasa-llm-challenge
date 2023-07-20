@@ -1,2 +1,7 @@
 python-dotenv
 chromadb
+ipykernel
+jupyter
+langchain
+openai
+tiktoken

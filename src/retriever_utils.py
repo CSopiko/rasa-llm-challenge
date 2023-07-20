@@ -10,7 +10,7 @@ from IPython.display import display, Markdown
 def ask_question(question, qa):
     res = qa.run(question)
     display(Markdown(f"**Question:** {question}"))
-    res_formatted = res.replace(". ", ".\n\n")
+    res_formatted = res
     display(Markdown(f"**Answer:** {res_formatted}"))
     return res
 
