@@ -11,7 +11,9 @@ One of the advantages of this project compared to ChatGPT is that it can provide
 ## Usage
 ### Watch the demo
 
-https://github.com/CSopiko/rasa-llm-challenge/assets/55315742/9bbff405-84dd-49c1-96bf-7a47701b25f5
+
+https://github.com/CSopiko/rasa-llm-challenge/assets/55315742/e56a6841-59f4-4af5-9587-9f17c9277ad9
+
 
 
 ### Install dependencies
