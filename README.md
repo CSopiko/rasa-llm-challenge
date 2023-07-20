@@ -10,7 +10,10 @@ Moreover, users won't need to know exactly what to search for; they can simply a
 One of the advantages of this project compared to ChatGPT is that it can provide answers based on specified versions of Rasa and is not limited by a specific cutoff date.
 ## Usage
 ### Watch the demo
-[![Watch the demo](https://drive.google.com/file/d/1Hc77-4G6ZbB_RAZveh4UyLVPSiYp5wee/view?usp=sharing)]
+
+https://github.com/CSopiko/rasa-llm-challenge/assets/55315742/9bbff405-84dd-49c1-96bf-7a47701b25f5
+
+
 ### Install dependencies
 python version 3.10 is used for this project. 
 To install dependencies run the following commands line by line:
