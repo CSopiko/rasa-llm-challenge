@@ -18,10 +18,8 @@ https://github.com/CSopiko/rasa-llm-challenge/assets/55315742/e56a6841-59f4-4af5
 
 ### Install dependencies
 python version 3.10 is used for this project. 
-To install dependencies run the following commands line by line:
+To install dependencies run the following command:
 ```bash
-conda create -n llm_doc python=3.10
-conda activate llm_doc
 pip3 install -r requirements.txt
 ```
 ### Set up environment variables
@@ -44,12 +42,11 @@ python main.py --load_from_env True
 ### Run the script
 run.sh script can be used to run the script. 
 ```bash
-conda activate llm_doc
 cd src
 python3 main.py --github_token <github_token> --openai_api_key <openai_api_key> --wait_for_renewal True
 ```
 
 ## Further improvements
-As we did not have much time to work on this project, there are many improvements that can be made. Some of them are listed below: 
+There are many improvements that can be made. Some of them are listed below: 
 - [ ] Add support for rasa common errors from stackoverflow
 - [ ] Add support for rasa forum questions
